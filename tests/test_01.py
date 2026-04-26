@@ -8,25 +8,12 @@ class TestBill(unittest.TestCase):
         self.assertEqual(bill.amount, 0)
     
     def test_amount(self):
-        bill = Bill(1, ['person1', 'person2'])
+        bill = Bill(1)
         self.assertEqual(bill.amount, 1)
 
-    def test_default_persons(self):
-        bill = Bill()
-        self.assertEqual(bill.persons, [])
-
-    def test_count_persons(self):
-        bill = Bill(1, ['person1', 'person2', 'person3'])
-        self.assertEqual(len(bill.persons), 3)
-    
-    def test_default_paied(self):
-        bill = Bill()
-        self.assertFalse(bill.paid)
-
-    def test_paied(self):
-        bill = Bill(2, ['person1', 'person2'])
-        bill.settle()
-        self.assertTrue(bill.paid)
+    def test_division(self):
+        bill = Bill(50, "Person A")
+        self.assertEqual(bill.receives, 25)
 
 if __name__ == "__main__":
     unittest.main()

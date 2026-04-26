@@ -1,20 +1,23 @@
 # To-do:
-# - Create Split function
+# - Create a test for the Ledger class
+# - Create the Ledger class
+
+# For now, let's assume:
+# - all bills are split equally
+# - only two people are involved
 
 class Bill:
-    def __init__(self, amount=0, persons=[], paied=False):
+    def __init__(self, amount=0, paid_by=None):
         self.amount = amount
-        self.persons = persons
-        self.paid = False
-    
-    def settle(self):
-        self.paid = True
-        return self.amount/len(set(self.persons))
+        self.paid_by = paid_by
 
+        self.receives = self.amount/2
 
 def main():
-    bill_01 = Bill(5, ['person1', 'person2'])
-    print(bill_01.settle())
+    bill_01 = Bill(5, paid_by='person1')
+    print("Amount: ", bill_01.amount)
+    print("Paid by: ", bill_01.paid_by)
+    print("Receives: ", bill_01.receives)
 
 
 if __name__ == "__main__":
