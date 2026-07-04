@@ -7,3 +7,6 @@ A Python application for managing shared group expenses. The core logic calculat
 - Support multiple ways of splitting (equal parts, percentages)
 - Settle up (returns who must pay to whom)
 - Settle up (resets the bill)
+
+## Running tests
+`python -m unittest tests/test_01.py`
