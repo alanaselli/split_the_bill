@@ -12,5 +12,4 @@ A Python application for managing shared group expenses. The core logic calculat
 `python -m unittest tests/test_01.py`
 
 ## To-do
-- Add a way to settle up
 - Add a CLI

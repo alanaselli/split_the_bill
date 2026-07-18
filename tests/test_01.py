@@ -84,7 +84,21 @@ class TestLedger(unittest.TestCase):
         ledger.get_balances()
         balance = ledger.balance
 
-        self.assertDictEqual(balance, {"Person B": 10, "Person A": -10})        
+        self.assertDictEqual(balance, {"Person B": 10, "Person A": -10})
+
+    def test_settle_up(self):
+        bill_01 = Bill(amount=50, paid_by="Person A", shared_with="Person B", is_settled=True)
+        bill_02 = Bill(amount=20, paid_by="Person B", shared_with="Person A")
+
+        ledger = Ledger()
+        ledger.add_bill(bill_01)
+        ledger.add_bill(bill_02)
+
+        ledger.settle_up()
+
+        ledger.get_balances()
+
+        self.assertDictEqual(ledger.balance, {})
 
 if __name__ == "__main__":
     unittest.main()

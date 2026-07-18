@@ -36,6 +36,10 @@ class Ledger:
                 self.balance[bill.paid_by] += bill.amount/2
                 self.balance[bill.shared_with] -= bill.amount/2
 
+    def settle_up(self):
+        for bill in self.list_of_bills:
+            bill.settle()
+
 
 def main():
     bill_01 = Bill(5, paid_by='person1', shared_with='person2')
