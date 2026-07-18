@@ -55,5 +55,21 @@ class TestLedger(unittest.TestCase):
 
         self.assertDictEqual(ledger.balance, {"Person A": 15, "Person B": -15})
 
+    def test_get_balances_twice(self):
+        # Test whether calling get_balances() twice the balances do not double
+
+        bill_01 = Bill(amount=50, paid_by="Person A", shared_with="Person B")
+
+        ledger = Ledger()
+        ledger.add_bill(bill_01)
+
+        ledger.get_balances()
+        balance_1 = ledger.balance
+        
+        ledger.get_balances()
+        balance_2 = ledger.balance
+
+        self.assertEqual(balance_1, balance_2)
+
 if __name__ == "__main__":
     unittest.main()
