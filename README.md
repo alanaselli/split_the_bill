@@ -12,4 +12,4 @@ A Python application for managing shared group expenses. The core logic calculat
 `python -m unittest tests/test_01.py`
 
 ## To-do
-- Add a CLI
+- Add a TUI
