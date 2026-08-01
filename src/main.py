@@ -1,7 +1,3 @@
-# To-do:
-# - Create a test for the Ledger class
-# - Create the Ledger class
-
 # For now, let's assume:
 # - all bills are split equally
 # - only two people are involved
@@ -27,7 +23,7 @@ class Ledger:
     def add_bill(self, bill):
         self.list_of_bills.append(bill)
 
-    def get_balances(self):
+    def calculate_balances(self):
 
         for bill in self.list_of_bills:
             if bill.is_settled == False: # TODO if not
