@@ -9,10 +9,10 @@ class Bill:
         self.shared_with = shared_with
         self.is_settled = is_settled
 
-        # TODO Ao mudar amount, receives nao atualiza
-        self.receives = self.amount/2
+    def _calculate_receives(self):
+        self._receives = self.amount/2
     
-    def settle(self):
+    def _settle(self):
         self.is_settled = True
 
 class Ledger:
@@ -21,6 +21,7 @@ class Ledger:
         self.balance = {}
 
     def add_bill(self, bill):
+        bill._calculate_receives()
         self.list_of_bills.append(bill)
 
     def calculate_balances(self):
@@ -37,7 +38,7 @@ class Ledger:
 
     def settle_up(self):
         for bill in self.list_of_bills:
-            bill.settle()
+            bill._settle()
 
 
 def main():

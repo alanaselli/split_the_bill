@@ -13,7 +13,8 @@ class TestBill(unittest.TestCase):
 
     def test_division(self):
         bill = Bill(50, "Person A")
-        self.assertEqual(bill.receives, 25)
+        bill._calculate_receives()
+        self.assertEqual(bill._receives, 25)
 
     def test_is_settled_default(self):
         bill = Bill()
@@ -21,7 +22,7 @@ class TestBill(unittest.TestCase):
 
     def test_is_settled(self):
         bill = Bill()
-        bill.settle()
+        bill._settle()
         self.assertTrue(bill.is_settled)
 
 class TestLedger(unittest.TestCase):
