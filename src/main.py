@@ -26,9 +26,11 @@ class Ledger:
     def calculate_balances(self):
 
         for bill in self.list_of_bills:
-            if bill.is_settled == False: # TODO if not
-                self.balance.setdefault(bill.paid_by, 0) # TODO revisar setdefault()
+            if not bill.is_settled:
+                self.balance.setdefault(bill.paid_by, 0)
                 self.balance.setdefault(bill.shared_with, 0)
+                # setdefault() returns the value of a specified key if it exists.
+                # If the key does not exist, it adds the key with a default value and returns that default.
 
                 self.balance[bill.paid_by] += bill.amount/2
                 self.balance[bill.shared_with] -= bill.amount/2
