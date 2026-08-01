@@ -55,5 +55,50 @@ class TestLedger(unittest.TestCase):
 
         self.assertDictEqual(ledger.balance, {"Person A": 15, "Person B": -15})
 
+    def test_get_balances_twice(self):
+        # Test whether calling get_balances() twice the balances do not double.
+
+        bill_01 = Bill(amount=50, paid_by="Person A", shared_with="Person B")
+
+        ledger = Ledger()
+        ledger.add_bill(bill_01)
+
+        ledger.get_balances()
+        balance_1 = ledger.balance
+        
+        ledger.get_balances()
+        balance_2 = ledger.balance
+
+        self.assertEqual(balance_1, balance_2)
+
+    def test_get_balances_with_settled_bills(self):
+        # Test whether a settled bill is excluded from the balances.
+
+        bill_01 = Bill(amount=50, paid_by="Person A", shared_with="Person B", is_settled=True)
+        bill_02 = Bill(amount=20, paid_by="Person B", shared_with="Person A")
+
+        ledger = Ledger()
+        ledger.add_bill(bill_01)
+        ledger.add_bill(bill_02)
+
+        ledger.get_balances()
+        balance = ledger.balance
+
+        self.assertDictEqual(balance, {"Person B": 10, "Person A": -10})
+
+    def test_settle_up(self):
+        bill_01 = Bill(amount=50, paid_by="Person A", shared_with="Person B", is_settled=True)
+        bill_02 = Bill(amount=20, paid_by="Person B", shared_with="Person A")
+
+        ledger = Ledger()
+        ledger.add_bill(bill_01)
+        ledger.add_bill(bill_02)
+
+        ledger.settle_up()
+
+        ledger.get_balances()
+
+        self.assertDictEqual(ledger.balance, {})
+
 if __name__ == "__main__":
     unittest.main()

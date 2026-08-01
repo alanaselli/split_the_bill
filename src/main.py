@@ -13,6 +13,7 @@ class Bill:
         self.shared_with = shared_with
         self.is_settled = is_settled
 
+        # TODO Ao mudar amount, receives nao atualiza
         self.receives = self.amount/2
     
     def settle(self):
@@ -29,11 +30,16 @@ class Ledger:
     def get_balances(self):
 
         for bill in self.list_of_bills:
-            self.balance.setdefault(bill.paid_by, 0)
-            self.balance.setdefault(bill.shared_with, 0)
+            if bill.is_settled == False: # TODO if not
+                self.balance.setdefault(bill.paid_by, 0) # TODO revisar setdefault()
+                self.balance.setdefault(bill.shared_with, 0)
 
-            self.balance[bill.paid_by] += bill.amount/2
-            self.balance[bill.shared_with] -= bill.amount/2
+                self.balance[bill.paid_by] += bill.amount/2
+                self.balance[bill.shared_with] -= bill.amount/2
+
+    def settle_up(self):
+        for bill in self.list_of_bills:
+            bill.settle()
 
 
 def main():
