@@ -1,7 +1,3 @@
-# To-do:
-# - Create a test for the Ledger class
-# - Create the Ledger class
-
 # For now, let's assume:
 # - all bills are split equally
 # - only two people are involved
@@ -13,10 +9,10 @@ class Bill:
         self.shared_with = shared_with
         self.is_settled = is_settled
 
-        # TODO Ao mudar amount, receives nao atualiza
-        self.receives = self.amount/2
+    def _calculate_receives(self):
+        self._receives = self.amount/2
     
-    def settle(self):
+    def _settle(self):
         self.is_settled = True
 
 class Ledger:
@@ -25,21 +21,24 @@ class Ledger:
         self.balance = {}
 
     def add_bill(self, bill):
+        bill._calculate_receives()
         self.list_of_bills.append(bill)
 
-    def get_balances(self):
+    def calculate_balances(self):
 
         for bill in self.list_of_bills:
-            if bill.is_settled == False: # TODO if not
-                self.balance.setdefault(bill.paid_by, 0) # TODO revisar setdefault()
+            if not bill.is_settled:
+                self.balance.setdefault(bill.paid_by, 0)
                 self.balance.setdefault(bill.shared_with, 0)
+                # setdefault() returns the value of a specified key if it exists.
+                # If the key does not exist, it adds the key with a default value and returns that default.
 
                 self.balance[bill.paid_by] += bill.amount/2
                 self.balance[bill.shared_with] -= bill.amount/2
 
     def settle_up(self):
         for bill in self.list_of_bills:
-            bill.settle()
+            bill._settle()
 
 
 def main():
